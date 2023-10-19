@@ -2,6 +2,10 @@
 
 Color your favorite albums into seaborn or matplotlib plots
 
+Inpiration:
+
+https://github.com/karthik/wesanderson
+
 ## Installation
 
 ```bash
@@ -74,3 +78,7 @@ TBD by MJ
 ## License
 
 `album-colours` was created by Majo Castañeda, Dante Bazaldua. It is licensed under the terms of the MIT license.
+
+## Contact
+
+For any comments or suggestions, feel free to reach me at dalnte@me.com or @MajoSedCast 
