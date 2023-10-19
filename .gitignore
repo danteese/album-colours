@@ -1,0 +1,6 @@
+build/
+*.egg-info/
+.vscode/
+dist/
+.DS_Store
+.idea/
