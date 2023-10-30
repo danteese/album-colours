@@ -1,18 +1,24 @@
 # album_colours
 
-Color your favorite albums into seaborn or matplotlib plots
+Color your favorite albums into seaborn or matplotlib.
 
-Inpiration:
+These palettes are the result of employing KMeans clustering on the color data extracted from the album covers.
 
-https://github.com/karthik/wesanderson
+The album selection for each artist was influenced by the colors of their cover, instead of their quality or representativeness.
 
-## Installation
+Other albums are free to join this package. Open a PR with the album cover and the name of the artist and album.
+
+> Inspiration:
+> * https://github.com/karthik/wesanderson
+> * https://github.com/jbgb13/peRReo
+
+# Installation
 
 ```bash
 $ pip install album_colours 
 ```
 
-## Usage
+# Usage
 
 Use this way into your notebook or script:
 
@@ -39,11 +45,12 @@ We currently support the following albums:
 * `rosalia2` [Motomami](https://open.spotify.com/intl-es/album/6jbtHi5R0jMXoliU2OS0lo) - Rosalía
 * `sen_senra` [Sensaciones](https://open.spotify.com/intl-es/album/7Hr8FOf7NQIe7UhLcllXq9) - Sen Senra
 * `soda_stereo` [Nada Personal](https://es.wikipedia.org/wiki/Nada_personal_(%C3%A1lbum)) - Soda Stereo
+* `tyler` [Flower Boy](https://en.wikipedia.org/wiki/Flower_Boy) - Tyler, the Creator
 
 
 - Please see the [example notebook](examples_plots.ipynb).
 
-## Development
+# Palettes 
 
 Some of the palettes look like this: 
 
@@ -71,14 +78,115 @@ Some of the palettes look like this:
 
 `radiohead` [Kid A](https://en.wikipedia.org/wiki/Kid_A) - Radiohead
 
-## Plot examples
+# Palette creations
 
-TBD by MJ
+The library at its core has the principal colors as a list of hex values. Use the `palette_generator.color_gradient_generator()` function to build and view your palettes.
 
-## License
+## Parameters
+
+* `palette` - The name of the palette you want to generate. See the list of available above. If the palette is not found, it will return an empty list. 
+* `color_count` - The number of colors you want to generate. Default is the length of elements in the list.
+* `palette_type` - The type of palette you want to generate. Options are `discrete` and `continuous`. Default is `discrete`.  
+
+> Its also recommended if you want to have the colors but in different order to use `sample()` from `random` package. As it is shown in the `examples_plots.ipynb` notebook.
+
+## Discrete palettes
+
+```python
+palette_generator.color_gradient_generator('bad_bunny')
+```
+
+![badbunny_10](example_images/discrete_continuous/1d.png "1d")
+
+```python
+palette_generator.color_gradient_generator('rosalia', 4)
+```
+
+![rosalia_4](example_images/discrete_continuous/2d.png "2d")
+
+---
+## Continuous palettes
+
+```python
+palette_generator.color_gradient_generator('bad_bunny', 20)
+```
+
+![badbunny_20](example_images/discrete_continuous/1c.png "1c")
+
+```python
+palette_generator.color_gradient_generator('rosalia', 20)
+```
+
+![rosalia_20](example_images/discrete_continuous/2c.png "2c")
+
+
+# Plot examples
+
+The library returns a list of colors that can be used in seaborn or matplotlib plots.
+Read more about it here: https://seaborn.pydata.org/tutorial/color_palettes.html
+
+All examples are in the [example notebook](examples_plots.ipynb).
+
+```python
+# all imports ...
+bad_bunny = palette_generator.color_gradient_generator('bad_bunny', 9)
+
+sns.set_palette(bad_bunny)
+sns.scatterplot(x="total_bill", y="tip", hue="sex", size="size", sizes=(50, 200), data=tips)
+```
+
+![plot-tips-bb](example_images/plots/1.png "Plot 1")
+
+---
+
+```python
+
+p = palette_generator.color_gradient_generator('aventura', 9)
+p_random = random.sample(p, 2)
+
+sns.set_palette(p_random)
+sns.relplot(
+    data=fmri, kind="line",
+    x="timepoint", y="signal", col="region",
+    palette=p_random,
+    hue="event", style="event",
+)
+```
+
+![plot_fmri](example_images/plots/2.png "Plot 2")
+
+---
+
+```python
+
+p = palette_generator.color_gradient_generator('tyler', 9)
+p_random = random.sample(p, 2)
+
+sns.set_palette(p_random)
+sns.catplot(data=tips, kind="violin", x="day", y="total_bill", hue="smoker", split=True)
+```
+
+![plot_tyler](example_images/plots/3.png "Plot 3")
+
+---
+
+```python
+p = palette_generator.color_gradient_generator('alvaro_diaz', 9)
+p_random = random.sample(p, 3)
+
+penguins = sns.load_dataset("penguins")
+sns.set_palette(p_random)
+sns.jointplot(data=penguins, x="flipper_length_mm", y="bill_length_mm", hue="species")
+```
+
+![plot_tyler](example_images/plots/4.png "Plot 4")
+
+---
+
+# License
 
 `album-colours` was created by Majo Castañeda, Dante Bazaldua. It is licensed under the terms of the MIT license.
 
-## Contact
+# Contact
 
 For any comments or suggestions, feel free to reach me at dalnte@me.com or @MajoSedCast 
